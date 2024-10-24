@@ -1,4 +1,5 @@
-FROM gradle:8.7.0-jdk20
+FROM eclipse-temurin:20-jdk
+ARG GRADLE_VERSION=8.7
 
 WORKDIR /app
 
