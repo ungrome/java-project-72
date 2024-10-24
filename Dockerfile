@@ -1,10 +1,15 @@
 FROM eclipse-temurin:20-jdk
+
 ARG GRADLE_VERSION=8.7
 
-WORKDIR /app
+WORKDIR /
 
-COPY /app .
+COPY ./ .
 
-RUN gradle installDist
+RUN ./gradlew --no-daemon dependencies
 
-CMD ./build/install/app/bin/app
+RUN ./gradlew --no-daemon build
+
+EXPOSE 8080
+
+CMD java -jar build/libs/app-1.0-SNAPSHOT.jar
