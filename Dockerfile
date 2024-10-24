@@ -1,11 +1,9 @@
-FROM eclipse-temurin:20-jdk
-ARG GRADLE_VERSION=8.7
+FROM gradle:8.7.0-jdk20
 
 WORKDIR /app
 
 COPY /app .
 
 RUN gradle installDist
-RUN gradle shadowJar
 
-CMD java -jar build/libs/app-1.0-SNAPSHOT.jar
+CMD ./build/install/app/bin/app
