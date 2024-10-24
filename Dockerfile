@@ -2,14 +2,22 @@ FROM eclipse-temurin:20-jdk
 
 ARG GRADLE_VERSION=8.7
 
-WORKDIR /
+RUN apt-get update && apt-get install -yq unzip wget
 
-COPY ./ .
+RUN wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
+    && unzip gradle-${GRADLE_VERSION}-bin.zip \
+    && rm gradle-${GRADLE_VERSION}-bin.zip \
+    && mv gradle-${GRADLE_VERSION} /opt/gradle
 
-RUN ./gradlew --no-daemon dependencies
+ENV GRADLE_HOME=/opt/gradle
+ENV PATH=$PATH:$GRADLE_HOME/bin
 
-RUN ./gradlew --no-daemon build
+WORKDIR /app
+
+COPY . .
+
+RUN gradle shadowJar
 
 EXPOSE 8080
 
-CMD java -jar build/libs/app-1.0-SNAPSHOT.jar
+CMD ["java", "-jar", "build/libs/app-1.0-SNAPSHOT.jar"]
