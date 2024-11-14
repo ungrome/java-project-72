@@ -16,6 +16,22 @@
 
 <body class="d-flex flex-column min-vh-100">
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Анализатор страниц</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav">
+                <a class="nav-link" href="${NamedRoutes.rootPath()}">Главная</a>
+                <a class="nav-link" href="${NamedRoutes.urlsPath()}">Сайты</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
 <main class="flex-grow-1">
     @if(page != null && page.getFlash() != null)
         <div class="rounded-0 m-0 alert alert-success alert-${page.getFlashType()}" role="alert">

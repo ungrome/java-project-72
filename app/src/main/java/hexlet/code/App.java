@@ -1,10 +1,11 @@
 package hexlet.code;
 
-import hexlet.code.dto.BasePage;
+import hexlet.code.controller.UrlsController;
 import hexlet.code.repository.BaseRepository;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import hexlet.code.util.NamedRoutes;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +20,8 @@ import java.util.stream.Collectors;
 
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
-import io.javalin.rendering.template.JavalinJte;
 import gg.jte.resolve.ResourceCodeResolver;
 
-import static io.javalin.rendering.template.TemplateUtil.model;
 
 @Slf4j
 public class App {
@@ -53,12 +52,12 @@ public class App {
             ctx.contentType("text/html; charset=utf-8");
         });
 
-        app.get("/", ctx -> {
-            var page = new BasePage();
-            page.setFlash(ctx.consumeSessionAttribute("flash"));
-            page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
-            ctx.render("index.jte", model("page", page));
-                    });
+        app.get(NamedRoutes.rootPath(), UrlsController::build);
+        app.get(NamedRoutes.urlsPath(), UrlsController::index);
+        app.get(NamedRoutes.urlPath("{id}"), UrlsController::show);
+        app.post(NamedRoutes.urlsPath(), UrlsController::create);
+
+
         return app;
     }
     private static String getDatabaseUrl() {
