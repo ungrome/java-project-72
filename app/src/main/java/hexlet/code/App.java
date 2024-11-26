@@ -29,7 +29,7 @@ public class App {
         Javalin app = getApp();
         app.start(getPort());
     }
-    public static Javalin getApp() throws IOException, SQLException{
+    public static Javalin getApp() throws IOException, SQLException {
         var hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(getDatabaseUrl());
         HikariDataSource dataSource = new HikariDataSource(hikariConfig);
