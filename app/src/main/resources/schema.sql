@@ -5,3 +5,13 @@ CREATE TABLE urls (
     name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL
 );
+
+CREATE TABLE url_checks (
+    id SERIAL PRIMARY KEY,
+    status_code INT NOT NULL,
+    title VARCHAR(255),
+    h1 VARCHAR(255),
+    description TEXT,
+    url_id bigint REFERENCES urls(id) ON DELETE CASCADE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);

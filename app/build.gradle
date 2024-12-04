@@ -33,7 +33,17 @@ dependencies {
     implementation('com.h2database:h2:2.2.224')
     implementation('org.postgresql:postgresql:42.7.3')
     implementation("gg.jte:jte:3.1.13")
+
+    implementation(platform("com.konghq:unirest-java-bom:4.3.0"))
+    implementation('com.konghq:unirest-java-core:4.4.4')
+    implementation('com.konghq:unirest-modules-gson:4.4.4')
+    implementation('com.konghq:unirest-modules-jackson:4.4.4')
+
+    implementation ("org.jsoup:jsoup:1.18.1")
+
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
 }
+
 
 test {
     useJUnitPlatform()

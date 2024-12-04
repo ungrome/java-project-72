@@ -3,6 +3,8 @@ import hexlet.code.dto.BasePage;
 import hexlet.code.dto.urls.UrlPage;
 import hexlet.code.dto.urls.UrlsPage;
 import hexlet.code.model.Url;
+import hexlet.code.model.UrlCheck;
+import hexlet.code.repository.UrlChecksRepository;
 import hexlet.code.util.NamedRoutes;
 import io.javalin.http.Context;
 import hexlet.code.repository.UrlRepository;
@@ -13,6 +15,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Map;
 
 import static io.javalin.rendering.template.TemplateUtil.model;
 
@@ -27,7 +30,8 @@ public class UrlsController {
 
     public static void index(Context ctx) throws SQLException {
         var urls = UrlRepository.getEntities();
-        var page = new UrlsPage(urls);
+        var urlChecks = UrlChecksRepository.getLatestUrlChecksBySQL();
+        var page = new UrlsPage(urls, urlChecks);
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
         ctx.render("urls/urls.jte", model("page", page));
@@ -67,11 +71,14 @@ public class UrlsController {
         ctx.redirect(NamedRoutes.urlsPath());
     }
 
-    public static void show(Context ctx) throws SQLException {
-        var id = ctx.pathParamAsClass("id", Long.class).get();
-        var product = UrlRepository.find(id)
-                .orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
-        var page = new UrlPage(product);
-        ctx.render("urls/url.jte", model("page", page));
-    }
+//    public static void show(Context ctx) throws SQLException {
+//        var id = ctx.pathParamAsClass("id", Long.class).get();
+//        var product = UrlRepository.find(id)
+//                .orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
+//        var urlChecks = UrlChecksRepository.getEntitiesByUrlId(id);
+//        var page = new UrlPage(product);
+//        ctx.render("urls/url.jte", model("page", page));
+//    }
+
+
 }
