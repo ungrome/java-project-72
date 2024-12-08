@@ -45,7 +45,6 @@ public class UrlChecksRepository extends BaseRepository {
         try (var conn = dataSource.getConnection();
              var stmt = conn.prepareStatement(sql)) {
 
-            // Use setLong to pass a bigint (Long) value to the query
             stmt.setLong(1, urlIdToFind);
 
             var resultSet = stmt.executeQuery();
