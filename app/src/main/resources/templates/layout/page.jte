@@ -40,5 +40,9 @@
     @endif
     ${content}
 </main>
+
+<footer class="footer border-top py-1 mt-4 bg-light">
+    <p class="text-dark bg-muted text-center">by <a href="https://github.com/ungrome" class="text-info">Roman Ungarov</a></p>
+</footer>
 </body>
 </html>

@@ -4,9 +4,11 @@ import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
+
 @Getter
 @Setter
 @AllArgsConstructor
+
 public final class Url {
     private Long id;
     private String name;
